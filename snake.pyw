@@ -34,10 +34,6 @@ class SnakeCore:
         return self._body
 
     @property
-    def wait(self):
-        return self._wait
-
-    @property
     def food(self):
         return self._food
 
@@ -57,9 +53,6 @@ class SnakeCore:
             self._food = [random.randint(0, self._width - 1), random.randint(0, self._height - 1)]
             if self._food not in self.body:
                 break
-
-    def set_wait(self, wait):
-        self._wait = wait
 
     def set_direction(self, direction):
         if direction == "left" and self._direction == "right": return
@@ -104,6 +97,7 @@ class Snake:
         self._width = width
         self._height = height
         self._side = side
+        self._wait = 0
 
         self._snake_core = SnakeCore(width, height, 0)
 
@@ -137,7 +131,7 @@ class Snake:
         return 1 - (speed-1) * 0.1
     def _set_speed(self, speed):
         self._speed = speed
-        self._snake_core.set_wait(Snake._speed_to_wait(speed))
+        self._wait = Snake._speed_to_wait(speed)
         self._speed_lbl["text"] = str(self._speed)
 
     def _leftKey(self, event): self._move("left")
@@ -156,7 +150,7 @@ class Snake:
             if snake_core.game_over:
                 stop = True
             self._draw()
-            time.sleep(snake_core.wait)
+            time.sleep(self._wait)
             bp = (100, 30)
             if snake_core.move():
                 bp = (200, 200)
