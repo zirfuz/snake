@@ -86,9 +86,8 @@ class SnakeCore:
             self._generate_food()
             return True
         else:
-            for i in range(len(body) - 1, 0, -1):
-                body[i] = body[i - 1]
-            body[0] = head
+            body.insert(0, head)
+            del body[-1]
         return False
 
 
