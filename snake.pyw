@@ -23,10 +23,9 @@ G_GAME_OVER_COLOR = "red"
 
 
 class SnakeCore:
-    def __init__(self, width, height, wait):
+    def __init__(self, width, height):
         self._width = width
         self._height = height
-        self._wait = wait
         self.reset()
 
     @property
@@ -99,7 +98,7 @@ class Snake:
         self._side = side
         self._wait = 0
 
-        self._snake_core = SnakeCore(width, height, 0)
+        self._snake_core = SnakeCore(width, height)
 
         self._squares = [[None for y in range(self._height)] for x in range(self._width)]
         self._squares_prev = [[None for y in range(self._height)] for x in range(self._width)]
